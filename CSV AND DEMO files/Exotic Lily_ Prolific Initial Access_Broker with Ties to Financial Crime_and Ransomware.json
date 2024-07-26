@@ -1,0 +1,150 @@
+{
+    "report_title": "Exotic Lily: Prolific Initial Access\nBroker with Ties to Financial Crime\nand Ransomware",
+    "report_number": "CTID-784-2023",
+    "sensitivity": null,
+    "traffic_light_protocol": "clear",
+    "criticality": "critical",
+    "executive_summary": "A prolific initial access broker, Exotic Lily has proven effective at scaling interactive phishing campaigns capable of bypassing traditional email defenses and resulting in ransomware infections. At\nthe height of their detected operations, they were sending approximately 5,000 phishes a day. Their\nuse of contact us forms, doppelganger domains, and interaction with the recipient prior to sending\nmalware increase their ability to bypass traditional email defenses and standard phishing training.\nThe group has links to ransomware operators and has been seen dropping Cobalt Strike, Sliver, and\nMeterpreter. \n",
+    "key_points": "Exotic Lily is a prolific initial access broker that specializes in high interaction operations.\n• Their operations have resulted in ransomware infections.\n• In one reported case, they successfully leveraged a 0day vulnerability in Windows during an\noperation. ",
+    "assessment": "The Exotic Lily initial access group poses a unique threat to corporate networks. Their ability to both\ncustomize and scale phishing campaigns is uniquely designed to reduce the likelihood that traditional phishing countermeasures will be effective. We assess with high confidence that their deployment\nof novel first contact methods, a high level of victim interaction, and the deployment of a new first\nstage loader with aggressive anti-detection capabilities are capable of subverting most existing anti-phishing controls.\n• Exotic Lily has conducted phishing campaigns that start with the use of company’s contact us forms on\ntheir webpages. This method requires a high level of threat actor interaction with the intended victim, but \nalso reduces the efficacy of phishing filters as the first contact is legitimate and from a trusted source.\n• Additionally, this group will engage in email exchanges with the intended victim and leverage cloud hosting\nproviders to send malware. This results in the phish email coming from a legitimate sender.\nThis group appears to work with multiple threat groups that are primarily criminally motivated. Often Exotic\nLily serves as an initial access vector for ransomware although it is likely that certain networks are provided to\nespionage operators.\n• Exotic Lily exploited a 0day vulnerability in Microsoft MSHTML (CVE-2021-40444). This is the only known\ninstance of the group leveraging a 0day vulnerability and, unlike its other campaigns, the recipients of this\ntargeting were selective, and a relatively small number of samples exploiting this vulnerability have been\nidentified.\nWe assess with low confidence that the group operates out of Eastern Europe and has ties with pro-Russian\ngroups.\n• The deployment of their new malware happened shortly after the fracturing of Conti.\n• Traditionally, the malware deployed from their initial access have ties to Eastern Europe.\n• An analysis of timestamps related to their phishing campaigns shows patterns consistent with working\nMonday through Friday in Central or Eastern Europe.\nWe assess with medium confidence that the group will continue to operate in a scalable, modular way that\nposes significant risk for private sector entities that are enticing targets for financially motivated hacking. ",
+    "threat_actor": {
+        "summary": "Exotic Lily is a group of initial access brokers that were first identified in September 2021. The\ngroup primarily leverages phishing with a high level of user interaction for the initial intrusion method and then gains access to a victim network via one of two RATs. It is unknown where the group\nis located or how it markets its services, however, an analysis of timestamps indicate they might be\nlocated in Central or Eastern Europe. ",
+        "ttp": "Exotic Lily primarily leverages highly interactive spear phishing at scale to gain initial access to\ntheir victims. This high level of interaction comes primarily in two forms.\nFirst, they will use a company’s contact us form to establish a connection with the intended victim\ncompany. The form creates a trusted communication channel for both the recipient and for email\nsecurity applications.\nSecond, the group will register doppelganger domains of companies that are related to the target in\nquestion. Leveraging a highly tailored spearphish, the group seeks to elicit a response before providing a malicious link.\nIf the group can successfully engage, they will often use legitimate file hosting tools to upload malicious files. Once hosted, they will then send a link to the file through the platform itself, thus by passing any malicious email filter. If the malicious file is downloaded, one of two files are dropped.\nHistorically, the group used Bazarloader to establish access on the victim network. Shortly prior to\nthe Conti ransomware group fracturing, the group switched to a new loader commonly referred to as\nBumblebee.\nFollow on malware delivery is dependent on what threat actors purchase the access enabled by\nBumblebee and previously Bazarloader. However, ransomware, Cobalt Strike, Sliver, and Meterpreter have all been observed in association with the loader.\nIn one reported case, the group was able to leverage a 0day exploit for Windows (CVE-2021-\n40444), but this was an aberration in how they normally operate, and there is no information regarding how the exploit was developed or obtained. ",
+        "infrastructure": "The threat actor leverages known file hosting sites to send the malicious documents. File hosts\ninclude: TransferNow, TransferXL, WeTransfer, and OneDrive. Additionally, they often leverage VPS\nproviders for the C2 of the loader. ",
+        "victims": "As an initial access broker, Exotic Lily does not have a specific targeting pattern as it pertains to\nvictims. One security company profiled their activity and “estimated Exotic Lily were sending more\nthan 5,000 emails a day, to as many as 650 targeted organizations globally. Up until November\n2021, the group seemed to be targeting specific industries such as IT, cybersecurity and healthcare,\nbut as of late we have seen them attacking a wide variety of organizations and industries, with less\nspecific focus.”1",
+        "attribution": "An analysis of Exotic Lily’s campaigns indicate that this is a professional outfit that primarily works\na standard Monday through Friday work week likely in Central or Eastern Europe. Additionally, the\ngroup appears to have ties to the Conti ransomware group that was primarily located in Eastern\nEurope with interests in Russia. However, we do not have specific attribution at this time, and they\nappear to be mercenaries rather than affiliated or supporting any particular country or interests. \n"
+    },
+    "timeline": [],
+    "intelligence_gaps": "Attribution to a specific country or countries could change the level of risk associated with the\ngroup.Their operations have resulted in ransomware infections.\n• A better understanding of how they obtained the one 0day exploit they have exploited would\nchange our assessment of their threat.\n• A better understanding of how they advertise and monetize their access would enable a better\nunderstanding of risk.",
+    "mitre_attack_table": [
+        {
+            "attribution": null,
+            "tactic": "TA0043",
+            "technique": "T1589",
+            "sub_technique": "T1589.002",
+            "procedure": "EXOTIC LILY has gathered targeted individuals' e-mail addresses through open-source\nresearch and website contact forms.",
+            "control": null,
+            "defend": "https://d3fend.mitre.org/offensive-technique/attack/T1589.002/"
+        },
+        {
+            "attribution": null,
+            "tactic": "TA0043",
+            "technique": "T1597",
+            "sub_technique": null,
+            "procedure": "EXOTIC LILY has searched for information\non targeted individuals on business databases including RocketReach and CrunchBase.",
+            "control": null,
+            "defend": null
+        }
+    ],
+    "victims": [],
+    "iocs": {
+        "malware": [
+            {
+                "attribution": null,
+                "ioc_malware_name": "BumbleBee",
+                "ioc_malware_sandbox": "N/A",
+                "ioc_malware_hash_type": "SHA256",
+                "ioc_malware_hash": "a72538ba00dc95190d69\n19756ffce74f0b3cf60db3\n87c6c9281a0dc892ded8\n02",
+                "ioc_associated_file_hash": null,
+                "ioc_malware_description": "Loader used for first stage\npersistence\n",
+                "first_reported": "2022-03-31T00:00:00.000Z",
+                "last_reported": "2022-04-01T00:00:00.000Z"
+            },
+            {
+                "attribution": null,
+                "ioc_malware_name": "BumbleBee",
+                "ioc_malware_sandbox": "N/A",
+                "ioc_malware_hash_type": "SHA256",
+                "ioc_malware_hash": "a72538ba00dc95190d69\n19756ffce74f0b3cf60db3\n87c6c9281a0dc892ded8\n02",
+                "ioc_associated_file_hash": null,
+                "ioc_malware_description": "Loader used for first stage\npersistence\n",
+                "first_reported": "2022-04-05T00:00:00.000Z",
+                "last_reported": "2022-04-05T00:00:00.000Z"
+            }
+        ],
+        "network": [
+            {
+                "attribution": null,
+                "network_intrusion_phase": "TA0001",
+                "artifact": "conlfex[.]com",
+                "details": "Doppelganger domain for initial\nphishing",
+                "first_reported": null,
+                "last_reported": "2022-03-01T00:00:00.000Z"
+            },
+            {
+                "attribution": null,
+                "network_intrusion_phase": "TA0001",
+                "artifact": "avrobio[.]co",
+                "details": "Doppelganger domain for initial\nphishing",
+                "first_reported": null,
+                "last_reported": "2022-03-01T00:00:00.000Z"
+            }
+        ],
+        "system_artifacts": [
+            {
+                "attribution": null,
+                "tactic": "TA0001",
+                "artifact": "C:\\Windows\\System32\\cmd.exe /c\npowershell -WindowStyle Hidden\n-Command \".\\7za.exe x archive.7z\n-pFhu$$57csa -o\\\"c:\\programdata\\\"\n-y > $null; rundll32 c:\\programdata\\19a.dll,oxgdXPSGPw",
+                "type": "Powershell command ",
+                "details": "Powershell command to extract\nthe Bumblebee DLL and executing rundll32.",
+                "first_reported": null,
+                "last_reported": "2022-08-01T00:00:00.000Z"
+            }
+        ],
+        "cves": [
+            {
+                "attribution": null,
+                "cve_number": "CVE-2021-40444",
+                "cve_patch_available": "Yes",
+                "cve_cvss_score": 7.8,
+                "cve_patch_applied": "Yes",
+                "date_reported": "2022-08-01T00:00:00.000Z",
+                "cve_remediation": null
+            }
+        ]
+    },
+    "signatures": [],
+    "intelligence_requirements": [
+        {
+            "intelligence_requirement": "OP-3"
+        },
+        {
+            "intelligence_requirement": "TAC-2"
+        }
+    ],
+    "data_sources": {
+        "report_citations": [],
+        "internal_telemetry": []
+    },
+    "metadata": {
+        "threat_actor_name": "Exotic Lily",
+        "threat_actor_aliases": "Projector Libra",
+        "victim_location": [
+            {
+                "location": "IND"
+            }
+        ],
+        "sectors": [
+            {
+                "sector": null
+            }
+        ],
+        "infrastructure_used": [
+            {
+                "infrastructure": "NA"
+            }
+        ],
+        "threat_actor_motivation": [
+            {
+                "threat_actor_motivation": "Cyber Crime"
+            }
+        ]
+    },
+    "report_date": "2024-07-23T08:26:53.152Z",
+    "__document": {
+        "authoring_tool_version": "1.0.0",
+        "template_name": "Threat Actor Profile",
+        "template_version": "0.1.0",
+        "template_identifier": "e4e907ac-f845-4b51-a73f-ab511456ce74"
+    }
+}
